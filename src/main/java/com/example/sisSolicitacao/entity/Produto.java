@@ -7,7 +7,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "Produto")
 public class Produto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
