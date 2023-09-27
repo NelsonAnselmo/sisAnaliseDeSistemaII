@@ -1,34 +1,32 @@
-package com.example.sisSolicitacao.entity;
+package com.example.sisSolicitacao.dto;
 
-import jakarta.persistence.*;
+import com.example.sisSolicitacao.entity.Produto;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+public class ProdutoDTO {
 
-@Entity
-@Table(name = "produto")
-public class Produto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String descricao;
     private Double preco;
     private Integer medida;
 
-    @OneToMany(mappedBy = "produto")
-    private Set<Itens_de_solicitacao> itens = new HashSet<>();
-
-    public Produto() {
+    public ProdutoDTO() {
     }
 
-    public Produto( Long id, String nome, String descricao, Double preco, Integer medida ) {
+    public ProdutoDTO( Long id, String nome, String descricao, Double preco, Integer medida ) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.medida = medida;
+    }
+
+    public ProdutoDTO( Produto entity ) {
+        id = entity.getId();
+        nome = entity.getNome();
+        descricao = entity.getDescricao();
+        preco = entity.getPreco();
+        medida = entity.getMedida();
     }
 
     public Long getId() {
@@ -69,18 +67,5 @@ public class Produto {
 
     public void setMedida( Integer medida ) {
         this.medida = medida;
-    }
-
-    @Override
-    public boolean equals( Object o ) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produto produto = (Produto) o;
-        return Objects.equals(getId(), produto.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
     }
 }
