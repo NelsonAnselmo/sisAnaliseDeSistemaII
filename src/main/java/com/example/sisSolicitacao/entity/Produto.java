@@ -18,7 +18,7 @@ public class Produto {
     private Integer medida;
 
     @OneToMany(mappedBy = "produto")
-    private Set<Itens_de_solicitacao> itens = new HashSet<>();
+    private Set<ItensSolicitacao> itens = new HashSet<>();
 
     public Produto() {
     }

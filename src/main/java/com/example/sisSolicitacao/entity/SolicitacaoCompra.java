@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table (name="solicitacao_compra")
-public class Solicitacao_de_Compra {
+public class SolicitacaoCompra {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,15 +19,15 @@ public class Solicitacao_de_Compra {
     private Estatus estatus;
 
     @OneToMany(mappedBy = "solicitacaoCompra")
-    private Set<Itens_de_solicitacao> itensDeSolicitacao = new HashSet<>();
+    private Set<ItensSolicitacao> itensSolicitacao = new HashSet<>();
 
     @OneToMany(mappedBy = "solicitacaoCompra")
     private Set<Compra> compras = new HashSet<>();
 
-    public Solicitacao_de_Compra() {
+    public SolicitacaoCompra() {
     }
 
-    public Solicitacao_de_Compra(Long id, Date data_compra) {
+    public SolicitacaoCompra( Long id, Date data_compra) {
         this.id = id;
         this.data_compra = data_compra;
     }
@@ -55,11 +55,20 @@ public class Solicitacao_de_Compra {
     public void setData_compra( Date data_compra) {
         this.data_compra = data_compra;
     }
-       @Override
+
+    public Set<ItensSolicitacao> getItensSolicitacao() {
+        return itensSolicitacao;
+    }
+
+    public void setItensSolicitacao( Set<ItensSolicitacao> itensDeSolicitacao ) {
+        this.itensSolicitacao = itensDeSolicitacao;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Solicitacao_de_Compra that = (Solicitacao_de_Compra) o;
+        SolicitacaoCompra that = (SolicitacaoCompra) o;
         return Objects.equals(id, that.id);
     }
 

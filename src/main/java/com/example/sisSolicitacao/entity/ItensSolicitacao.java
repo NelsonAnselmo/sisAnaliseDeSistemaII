@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table (name="itens_solicitacao")
-public class Itens_de_solicitacao {
+public class ItensSolicitacao {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -26,20 +26,22 @@ public class Itens_de_solicitacao {
             name = "item_local_compra",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "local_id"))
-    private Set<Local_de_compra> locaisDeCompra = new HashSet<>();
+    private Set<LocalCompra> locaisDeCompra = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "solicitacao_id")
-    private Solicitacao_de_Compra solicitacaoCompra;
+    private SolicitacaoCompra solicitacaoCompra;
 
 
-    public Itens_de_solicitacao() {
+    public ItensSolicitacao() {
     }
 
-    public Itens_de_solicitacao(Long id, Double preco_unitario, Integer quantidade) {
+    public ItensSolicitacao( Long id, Double preco_unitario, Integer quantidade, Produto produto, SolicitacaoCompra solicitacaoCompra) {
         this.id = id;
         this.preco_unitario = preco_unitario;
         this.quantidade = quantidade;
+        this.produto = produto;
+        this.solicitacaoCompra = solicitacaoCompra;
     }
 
     public Long getId() {
@@ -74,11 +76,27 @@ public class Itens_de_solicitacao {
         this.status = status;
     }
 
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto( Produto produto ) {
+        this.produto = produto;
+    }
+
+    public SolicitacaoCompra getSolicitacaoCompra() {
+        return solicitacaoCompra;
+    }
+
+    public void setSolicitacaoCompra( SolicitacaoCompra solicitacaoCompra ) {
+        this.solicitacaoCompra = solicitacaoCompra;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Itens_de_solicitacao that = (Itens_de_solicitacao) o;
+        ItensSolicitacao that = (ItensSolicitacao) o;
         return Objects.equals(id, that.id);
     }
 

@@ -1,9 +1,9 @@
 package com.example.sisSolicitacao.service.impl;
 
-import com.example.sisSolicitacao.dto.Local_de_CompraDTO;
-import com.example.sisSolicitacao.entity.Local_de_compra;
-import com.example.sisSolicitacao.repository.Local_de_CompraDao;
-import com.example.sisSolicitacao.service.Local_de_CompraService;
+import com.example.sisSolicitacao.dto.LocalCompraDTO;
+import com.example.sisSolicitacao.entity.LocalCompra;
+import com.example.sisSolicitacao.repository.LocalCompraDao;
+import com.example.sisSolicitacao.service.LocalCompraService;
 import com.example.sisSolicitacao.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -18,38 +18,38 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class Local_de_CompraServiceImpl implements Local_de_CompraService {
+public class LocalCompraServiceImpl implements LocalCompraService {
     @Autowired
-    private Local_de_CompraDao localDeCompraDao;
+    private LocalCompraDao localDeCompraDao;
 
     @Override
-    public Page<Local_de_CompraDTO> findAll(Pageable pageable) {
-        Page<Local_de_compra> list = localDeCompraDao.findAll(pageable);
-        return list.map(x -> new Local_de_CompraDTO(x));
+    public Page<LocalCompraDTO> findAll( Pageable pageable) {
+        Page<LocalCompra> list = localDeCompraDao.findAll(pageable);
+        return list.map(x -> new LocalCompraDTO(x));
     }
 
     @Override
-    public Local_de_CompraDTO findById(Long id) {
-        Optional<Local_de_compra> o = localDeCompraDao.findById(id);
-        Local_de_compra entity = o.orElseThrow(() -> new ResourceNotFoundException("Produto com ID: " + id + " não foi encontrado"));
-        return new Local_de_CompraDTO(entity);
+    public LocalCompraDTO findById( Long id) {
+        Optional<LocalCompra> o = localDeCompraDao.findById(id);
+        LocalCompra entity = o.orElseThrow(() -> new ResourceNotFoundException("Produto com ID: " + id + " não foi encontrado"));
+        return new LocalCompraDTO(entity);
     }
 
     @Override
-    public Local_de_CompraDTO insert(Local_de_CompraDTO dto) {
-        Local_de_compra entity = new Local_de_compra();
+    public LocalCompraDTO insert( LocalCompraDTO dto) {
+        LocalCompra entity = new LocalCompra();
         copyDtoToEntity(dto, entity);
         entity = localDeCompraDao.save(entity);
-        return new Local_de_CompraDTO(entity);
+        return new LocalCompraDTO(entity);
     }
 
     @Override
-    public Local_de_CompraDTO update(Long id, Local_de_CompraDTO dto) {
+    public LocalCompraDTO update( Long id, LocalCompraDTO dto) {
         try {
-            Local_de_compra entity = localDeCompraDao.getReferenceById(id);
+            LocalCompra entity = localDeCompraDao.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = localDeCompraDao.save(entity);
-            return new Local_de_CompraDTO(entity);
+            return new LocalCompraDTO(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Local de Compra com ID: " + id + " não foi encontrado");
         }
@@ -66,7 +66,7 @@ public class Local_de_CompraServiceImpl implements Local_de_CompraService {
         }
     }
 
-    private void copyDtoToEntity(Local_de_CompraDTO dto, Local_de_compra entity) {
+    private void copyDtoToEntity( LocalCompraDTO dto, LocalCompra entity) {
         entity.setBairro(dto.getBairro());
         entity.setEndereco(dto.getEndereco());
         entity.setNome_estabelecimento(dto.getNome_estabelecimento());

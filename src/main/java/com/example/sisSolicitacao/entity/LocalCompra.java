@@ -1,28 +1,32 @@
-package com.example.sisSolicitacao.dto;
+package com.example.sisSolicitacao.entity;
 
-import com.example.sisSolicitacao.entity.Local_de_compra;
+import jakarta.persistence.*;
 
-public class Local_de_CompraDTO {
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table (name="local_compra")
+public class LocalCompra {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String bairro;
     private String endereco;
     private String nome_estabelecimento;
 
-    public Local_de_CompraDTO() {
+    @ManyToMany(mappedBy = "locaisDeCompra")
+    private Set<ItensSolicitacao> itensDeCompra = new HashSet<>();
+
+    public LocalCompra() {
     }
 
-    public Local_de_CompraDTO(Long id, String bairro, String endereco, String nome_estabelecimento) {
+    public LocalCompra( Long id, String bairro, String endereco, String nome_estabelecimento) {
         this.id = id;
         this.bairro = bairro;
         this.endereco = endereco;
         this.nome_estabelecimento = nome_estabelecimento;
-    }
-
-    public Local_de_CompraDTO(Local_de_compra Entity) {
-        id = Entity.getId();
-        bairro = Entity.getBairro();
-        endereco = Entity.getEndereco();
-        nome_estabelecimento = Entity.getNome_estabelecimento();
     }
 
     public Long getId() {
@@ -55,5 +59,18 @@ public class Local_de_CompraDTO {
 
     public void setNome_estabelecimento(String nome_estabelecimento) {
         this.nome_estabelecimento = nome_estabelecimento;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LocalCompra that = (LocalCompra) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

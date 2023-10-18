@@ -18,7 +18,7 @@ public class Compra {
 
     @ManyToOne
     @JoinColumn(name = "solicitacao_id")
-    private Solicitacao_de_Compra solicitacaoCompra;
+    private SolicitacaoCompra solicitacaoCompra;
 
     public Compra() {
     }
